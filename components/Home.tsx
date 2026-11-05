@@ -3,278 +3,218 @@ import React from 'react';
 import {
   View,
   Text,
-  TextInput,
-  ScrollView,
   StyleSheet,
   TouchableOpacity,
+  ScrollView,
 } from 'react-native';
 
-const coffees = [
-  { id: 1, name: 'Caffe Mocha', description: 'Deep Foam', price: '4.53', icon: '☕' },
-  { id: 2, name: 'Flat White', description: 'Espresso', price: '3.53', icon: '🥤' },
-  { id: 3, name: 'Cappuccino', description: 'Milk Coffee', price: '4.00', icon: '☕' },
-  { id: 4, name: 'Latte', description: 'Smooth Coffee', price: '3.80', icon: '🥛' },
-];
+type HomeProps = {
+  onSelectCoffee: () => void;
+};
 
-export default function Home() {
+export default function Home({ onSelectCoffee }: HomeProps) {
   return (
-    <View style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.header}>
-          <Text style={styles.locationLabel}>Location</Text>
-          <Text style={styles.location}>Almaty, Kazakhstan⌄</Text>
-        </View>
+    <ScrollView style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.logo}>Coffee House ☕</Text>
+        <Text style={styles.location}>Almaty, Kazakhstan</Text>
+      </View>
 
-        <View style={styles.searchRow}>
-          <TextInput
-            placeholder="⌕  Search coffee"
-            placeholderTextColor="#BBBBBB"
-            style={styles.search}
-          />
-          <TouchableOpacity style={styles.filterButton}>
-            <Text style={styles.filterText}>☷</Text>
+      <Text style={styles.title}>Good morning! ☀️</Text>
+      <Text style={styles.subtitle}>
+        What would you like to drink today?
+      </Text>
+
+      <View style={styles.banner}>
+        <View style={styles.bannerContent}>
+          <Text style={styles.bannerTitle}>Special Offer</Text>
+          <Text style={styles.bannerText}>
+            Get 20% off your first order
+          </Text>
+
+          <TouchableOpacity
+            style={styles.orderButton}
+            onPress={onSelectCoffee}
+          >
+            <Text style={styles.buttonText}>Order Now</Text>
           </TouchableOpacity>
         </View>
 
-        <View style={styles.promo}>
-          <Text style={styles.promoTag}>Promo</Text>
-          <Text style={styles.promoText}>
-            Buy one get{'\n'}one FREE
-          </Text>
-        </View>
-
-        <Text style={styles.sectionTitle}>Choose your coffee</Text>
-
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          style={styles.categories}
-        >
-          {['All Coffee', 'Macchiato', 'Latte', 'Americano'].map(
-            (category, index) => (
-              <TouchableOpacity
-                key={category}
-                style={[
-                  styles.category,
-                  index === 0 && styles.activeCategory,
-                ]}
-              >
-                <Text
-                  style={[
-                    styles.categoryText,
-                    index === 0 && styles.activeCategoryText,
-                  ]}
-                >
-                  {category}
-                </Text>
-              </TouchableOpacity>
-            ),
-          )}
-        </ScrollView>
-
-        <View style={styles.coffeeGrid}>
-          {coffees.map((coffee) => (
-            <View key={coffee.id} style={styles.card}>
-              <View style={styles.coffeeImage}>
-                <Text style={styles.coffeeIcon}>{coffee.icon}</Text>
-              </View>
-
-              <Text style={styles.coffeeName}>{coffee.name}</Text>
-              <Text style={styles.coffeeDescription}>
-                {coffee.description}
-              </Text>
-
-              <View style={styles.priceRow}>
-                <Text style={styles.price}>${coffee.price}</Text>
-                <TouchableOpacity style={styles.addButton}>
-                  <Text style={styles.addText}>+</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          ))}
-        </View>
-      </ScrollView>
-
-      <View style={styles.bottomNav}>
-        <Text style={styles.navItem}>⌂</Text>
-        <Text style={styles.navItem}>♡</Text>
-        <Text style={styles.navItem}>▢</Text>
-        <Text style={styles.navItem}>♧</Text>
+        <Text style={styles.coffeeIcon}>☕</Text>
       </View>
-    </View>
+
+      <Text style={styles.sectionTitle}>Categories</Text>
+
+      <View style={styles.categories}>
+        {['All', 'Coffee', 'Tea', 'Dessert'].map((item) => (
+          <TouchableOpacity key={item} style={styles.category}>
+            <Text style={styles.categoryText}>{item}</Text>
+          </TouchableOpacity>
+        ))}
+      </View>
+
+      <Text style={styles.sectionTitle}>Popular Coffee</Text>
+
+      <View style={styles.products}>
+        <View style={styles.product}>
+          <Text style={styles.productIcon}>☕</Text>
+          <Text style={styles.productName}>Cappuccino</Text>
+          <Text style={styles.description}>
+            Rich and creamy coffee
+          </Text>
+          <Text style={styles.price}>₸ 1,500</Text>
+
+          <TouchableOpacity
+            style={styles.addButton}
+            onPress={onSelectCoffee}
+          >
+            <Text style={styles.buttonText}>+ Add</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.product}>
+          <Text style={styles.productIcon}>🥤</Text>
+          <Text style={styles.productName}>Iced Latte</Text>
+          <Text style={styles.description}>
+            Cold refreshing coffee
+          </Text>
+          <Text style={styles.price}>₸ 1,800</Text>
+
+          <TouchableOpacity
+            style={styles.addButton}
+            onPress={onSelectCoffee}
+          >
+            <Text style={styles.buttonText}>+ Add</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F8F8F8',
+    backgroundColor: '#FFF9F2',
+    padding: 20,
   },
   header: {
-    backgroundColor: '#171717',
-    paddingTop: 60,
-    paddingHorizontal: 22,
-    paddingBottom: 25,
+    marginTop: 35,
+    marginBottom: 30,
   },
-  locationLabel: {
-    color: '#AAAAAA',
-    fontSize: 12,
+  logo: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    color: '#593820',
   },
   location: {
-    color: '#FFFFFF',
-    fontSize: 15,
-    fontWeight: 'bold',
+    color: '#999',
     marginTop: 5,
   },
-  searchRow: {
-    flexDirection: 'row',
-    marginHorizontal: 20,
-    marginBottom: 25,
-    gap: 12,
-  },
-  search: {
-    flex: 1,
-    backgroundColor: '#292929',
-    color: '#FFFFFF',
-    borderRadius: 12,
-    paddingHorizontal: 15,
-    height: 48,
-  },
-  filterButton: {
-    width: 48,
-    height: 48,
-    borderRadius: 12,
-    backgroundColor: '#C98252',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  filterText: {
-    color: '#FFFFFF',
-    fontSize: 24,
-  },
-  promo: {
-    backgroundColor: '#D18A5B',
-    marginHorizontal: 20,
-    borderRadius: 16,
-    padding: 22,
-    marginBottom: 25,
-  },
-  promoTag: {
-    color: '#FFFFFF',
-    backgroundColor: '#E54F55',
-    alignSelf: 'flex-start',
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    borderRadius: 6,
-    overflow: 'hidden',
-    fontSize: 12,
-  },
-  promoText: {
-    color: '#FFFFFF',
+  title: {
     fontSize: 27,
     fontWeight: 'bold',
-    marginTop: 12,
+    color: '#352317',
   },
-  sectionTitle: {
-    fontSize: 21,
-    fontWeight: 'bold',
-    color: '#222222',
-    marginHorizontal: 20,
-    marginBottom: 15,
+  subtitle: {
+    fontSize: 15,
+    color: '#888',
+    marginTop: 8,
+    marginBottom: 25,
   },
-  categories: {
-    paddingLeft: 20,
-    marginBottom: 20,
-    maxHeight: 42,
-  },
-  category: {
-    paddingHorizontal: 15,
-    paddingVertical: 10,
-    marginRight: 10,
-    borderRadius: 9,
-    backgroundColor: '#EEEEEE',
-  },
-  activeCategory: {
-    backgroundColor: '#C98252',
-  },
-  categoryText: {
-    color: '#555555',
-    fontSize: 12,
-  },
-  activeCategoryText: {
-    color: '#FFFFFF',
-    fontWeight: 'bold',
-  },
-  coffeeGrid: {
+  banner: {
+    backgroundColor: '#593820',
+    borderRadius: 20,
+    padding: 20,
     flexDirection: 'row',
-    flexWrap: 'wrap',
     justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    paddingBottom: 25,
-  },
-  card: {
-    width: '48%',
-    backgroundColor: '#FFFFFF',
-    borderRadius: 15,
-    padding: 10,
-    marginBottom: 15,
-    elevation: 3,
-  },
-  coffeeImage: {
-    height: 115,
-    backgroundColor: '#F0E6DE',
-    borderRadius: 12,
-    justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 10,
+  },
+  bannerContent: {
+    flex: 1,
+  },
+  bannerTitle: {
+    color: '#FFF',
+    fontSize: 22,
+    fontWeight: 'bold',
+  },
+  bannerText: {
+    color: '#E8D5C4',
+    marginTop: 8,
   },
   coffeeIcon: {
     fontSize: 55,
   },
-  coffeeName: {
-    fontSize: 15,
+  orderButton: {
+    backgroundColor: '#D6A36A',
+    padding: 10,
+    borderRadius: 10,
+    marginTop: 15,
+    alignSelf: 'flex-start',
+  },
+  buttonText: {
+    color: '#FFF',
     fontWeight: 'bold',
-    color: '#222222',
   },
-  coffeeDescription: {
-    color: '#999999',
-    fontSize: 12,
-    marginTop: 4,
+  sectionTitle: {
+    fontSize: 21,
+    fontWeight: 'bold',
+    color: '#352317',
+    marginTop: 30,
+    marginBottom: 15,
   },
-  priceRow: {
+  categories: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: 12,
+  },
+  category: {
+    backgroundColor: '#F0E3D5',
+    paddingVertical: 12,
+    paddingHorizontal: 12,
+    borderRadius: 12,
+  },
+  categoryText: {
+    color: '#593820',
+    fontWeight: '600',
+  },
+  products: {
+    flexDirection: 'row',
+    gap: 15,
+    marginBottom: 30,
+  },
+  product: {
+    flex: 1,
+    backgroundColor: '#FFF',
+    padding: 15,
+    borderRadius: 18,
+    elevation: 3,
+  },
+  productIcon: {
+    fontSize: 45,
+    textAlign: 'center',
+    marginBottom: 12,
+  },
+  productName: {
+    fontSize: 17,
+    fontWeight: 'bold',
+    color: '#352317',
+  },
+  description: {
+    fontSize: 12,
+    color: '#999',
+    marginTop: 5,
   },
   price: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#222222',
+    color: '#593820',
+    marginTop: 12,
   },
   addButton: {
-    backgroundColor: '#C98252',
-    width: 32,
-    height: 32,
+    backgroundColor: '#593820',
+    padding: 10,
     borderRadius: 10,
-    justifyContent: 'center',
     alignItems: 'center',
-  },
-  addText: {
-    color: '#FFFFFF',
-    fontSize: 23,
-  },
-  bottomNav: {
-    height: 60,
-    backgroundColor: '#FFFFFF',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    borderTopWidth: 1,
-    borderTopColor: '#EEEEEE',
-  },
-  navItem: {
-    fontSize: 25,
-    color: '#C98252',
+    marginTop: 12,
   },
 });
