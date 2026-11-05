@@ -1,11 +1,23 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { View, StyleSheet } from 'react-native';
+
+import Onboarding from './components/Onboarding';
+import Home from './components/Home';
 
 export default function App() {
+  const [currentScreen, setCurrentScreen] = useState<
+    'onboarding' | 'home'
+  >('onboarding');
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
+      {currentScreen === 'onboarding' ? (
+        <Onboarding
+          onGetStarted={() => setCurrentScreen('home')}
+        />
+      ) : (
+        <Home />
+      )}
     </View>
   );
 }
@@ -13,8 +25,5 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });
