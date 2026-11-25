@@ -23,6 +23,9 @@ import Payment from './components/Payment';
 import OrderTracking from './components/OrderTracking';
 import OrderSuccess from './components/OrderSuccess';
 
+// Currency screen
+import Currency from './components/Currency';
+
 type Screen =
   | 'onboarding'
   | 'home'
@@ -38,7 +41,8 @@ type Screen =
   | 'map'
   | 'payment'
   | 'tracking'
-  | 'success';
+  | 'success'
+  | 'currency';
 
 export default function App() {
   const [currentScreen, setCurrentScreen] =
@@ -71,6 +75,13 @@ export default function App() {
           onLogin={() => setCurrentScreen('login')}
           onSearch={() => setCurrentScreen('search')}
           onFavorites={() => setCurrentScreen('favorites')}
+          onCurrency={() => setCurrentScreen('currency')}
+        />
+      )}
+
+      {currentScreen === 'currency' && (
+        <Currency 
+        onBack={() => setCurrentScreen('home')}
         />
       )}
 

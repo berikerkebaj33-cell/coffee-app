@@ -6,7 +6,6 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
-  TextInput,
 } from 'react-native';
 
 type HomeProps = {
@@ -14,6 +13,7 @@ type HomeProps = {
   onLogin: () => void;
   onSearch: () => void;
   onFavorites: () => void;
+  onCurrency: () => void;
 };
 
 const categories = ['All', 'Coffee', 'Tea', 'Dessert'];
@@ -31,6 +31,7 @@ export default function Home({
   onLogin,
   onSearch,
   onFavorites,
+  onCurrency,
 }: HomeProps) {
   const [selectedCategory, setSelectedCategory] = useState('All');
 
@@ -69,6 +70,11 @@ export default function Home({
         <TouchableOpacity style={styles.navButton} onPress={onFavorites}>
           <Text style={styles.navIcon}>❤️</Text>
           <Text style={styles.navText}>Favorites</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.navButton} onPress={onCurrency}>
+          <Text style={styles.navIcon}>💱</Text>
+          <Text style={styles.navText}>Currency</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.navButton} onPress={onLogin}>
@@ -216,7 +222,7 @@ const styles = StyleSheet.create({
 
   navigation: {
     flexDirection: 'row',
-    gap: 10,
+    gap: 7,
     marginBottom: 25,
   },
 
@@ -229,14 +235,14 @@ const styles = StyleSheet.create({
   },
 
   navIcon: {
-    fontSize: 21,
+    fontSize: 19,
     marginBottom: 5,
   },
 
   navText: {
     color: '#593820',
     fontWeight: '600',
-    fontSize: 12,
+    fontSize: 10,
   },
 
   banner: {
