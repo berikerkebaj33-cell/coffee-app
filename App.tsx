@@ -2,17 +2,26 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 
+// Existing screens
 import Onboarding from './components/Onboarding';
 import Home from './components/Home';
 import DetailItem from './components/DetailItem';
 import Order from './components/Order';
 import Delivery from './components/Delivery';
 
+// Login screens
 import Login from './components/Login';
 import SignUp from './components/SignUp';
 import ForgotPassword from './components/ForgotPassword';
 import Search from './components/Search';
 import Favorites from './components/Favorites';
+
+// Delivery screens
+import Address from './components/Address';
+import MapPicker from './components/MapPicker';
+import Payment from './components/Payment';
+import OrderTracking from './components/OrderTracking';
+import OrderSuccess from './components/OrderSuccess';
 
 type Screen =
   | 'onboarding'
@@ -24,11 +33,28 @@ type Screen =
   | 'signup'
   | 'forgot'
   | 'search'
-  | 'favorites';
+  | 'favorites'
+  | 'address'
+  | 'map'
+  | 'payment'
+  | 'tracking'
+  | 'success';
 
 export default function App() {
   const [currentScreen, setCurrentScreen] =
     useState<Screen>('onboarding');
+
+  const [selectedAddress, setSelectedAddress] =
+    useState('');
+
+  const [selectedLocation, setSelectedLocation] =
+    useState({
+      latitude: 43.2389,
+      longitude: 76.8897,
+    });
+
+  const [paymentMethod, setPaymentMethod] =
+    useState('kaspi');
 
   return (
     <View style={styles.container}>
@@ -58,7 +84,7 @@ export default function App() {
       {currentScreen === 'order' && (
         <Order
           onBack={() => setCurrentScreen('detail')}
-          onCheckout={() => setCurrentScreen('delivery')}
+          onCheckout={() => setCurrentScreen('address')}
         />
       )}
 
@@ -99,6 +125,50 @@ export default function App() {
       {currentScreen === 'favorites' && (
         <Favorites
           onBack={() => setCurrentScreen('home')}
+        />
+      )}
+
+      {currentScreen === 'address' && (
+        <Address
+          onBack={() => setCurrentScreen('order')}
+          onContinue={(address) => {
+            setSelectedAddress(address);
+            setCurrentScreen('map');
+          }}
+        />
+      )}
+
+      {currentScreen === 'map' && (
+        <MapPicker
+          onBack={() => setCurrentScreen('address')}
+          onConfirm={(location) => {
+            setSelectedLocation(location);
+            setCurrentScreen('payment');
+          }}
+        />
+      )}
+
+      {currentScreen === 'payment' && (
+        <Payment
+          onBack={() => setCurrentScreen('map')}
+          onContinue={(method) => {
+            setPaymentMethod(method);
+            setCurrentScreen('tracking');
+          }}
+        />
+      )}
+
+      {currentScreen === 'tracking' && (
+        <OrderTracking
+          onBack={() => setCurrentScreen('payment')}
+          onFinish={() => setCurrentScreen('success')}
+        />
+      )}
+
+      {currentScreen === 'success' && (
+        <OrderSuccess
+          onHome={() => setCurrentScreen('home')}
+          onTrackAgain={() => setCurrentScreen('tracking')}
         />
       )}
 
