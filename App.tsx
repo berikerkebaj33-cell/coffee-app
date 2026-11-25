@@ -8,12 +8,23 @@ import DetailItem from './components/DetailItem';
 import Order from './components/Order';
 import Delivery from './components/Delivery';
 
+import Login from './components/Login';
+import SignUp from './components/SignUp';
+import ForgotPassword from './components/ForgotPassword';
+import Search from './components/Search';
+import Favorites from './components/Favorites';
+
 type Screen =
   | 'onboarding'
   | 'home'
   | 'detail'
   | 'order'
-  | 'delivery';
+  | 'delivery'
+  | 'login'
+  | 'signup'
+  | 'forgot'
+  | 'search'
+  | 'favorites';
 
 export default function App() {
   const [currentScreen, setCurrentScreen] =
@@ -31,6 +42,9 @@ export default function App() {
       {currentScreen === 'home' && (
         <Home
           onSelectCoffee={() => setCurrentScreen('detail')}
+          onLogin={() => setCurrentScreen('login')}
+          onSearch={() => setCurrentScreen('search')}
+          onFavorites={() => setCurrentScreen('favorites')}
         />
       )}
 
@@ -52,6 +66,39 @@ export default function App() {
         <Delivery
           onBack={() => setCurrentScreen('order')}
           onHome={() => setCurrentScreen('home')}
+        />
+      )}
+
+      {currentScreen === 'login' && (
+        <Login
+          onLogin={() => setCurrentScreen('home')}
+          onSignUp={() => setCurrentScreen('signup')}
+          onForgot={() => setCurrentScreen('forgot')}
+        />
+      )}
+
+      {currentScreen === 'signup' && (
+        <SignUp
+          onBack={() => setCurrentScreen('login')}
+          onRegister={() => setCurrentScreen('login')}
+        />
+      )}
+
+      {currentScreen === 'forgot' && (
+        <ForgotPassword
+          onBack={() => setCurrentScreen('login')}
+        />
+      )}
+
+      {currentScreen === 'search' && (
+        <Search
+          onBack={() => setCurrentScreen('home')}
+        />
+      )}
+
+      {currentScreen === 'favorites' && (
+        <Favorites
+          onBack={() => setCurrentScreen('home')}
         />
       )}
 
