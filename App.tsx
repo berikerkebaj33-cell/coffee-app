@@ -2,14 +2,14 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 
-// Existing screens
+// Main screens
 import Onboarding from './components/Onboarding';
 import Home from './components/Home';
 import DetailItem from './components/DetailItem';
 import Order from './components/Order';
 import Delivery from './components/Delivery';
 
-// Login screens
+// Login and shopping screens
 import Login from './components/Login';
 import SignUp from './components/SignUp';
 import ForgotPassword from './components/ForgotPassword';
@@ -25,6 +25,13 @@ import OrderSuccess from './components/OrderSuccess';
 
 // Currency screen
 import Currency from './components/Currency';
+
+// New screens
+import Profile from './screens/Profile';
+import OrderHistory from './screens/OrderHistory';
+import Notifications from './screens/Notifications';
+import Settings from './screens/Settings';
+import Support from './screens/Support';
 
 type Screen =
   | 'onboarding'
@@ -42,7 +49,12 @@ type Screen =
   | 'payment'
   | 'tracking'
   | 'success'
-  | 'currency';
+  | 'currency'
+  | 'profile'
+  | 'orderHistory'
+  | 'notifications'
+  | 'settings'
+  | 'support';
 
 export default function App() {
   const [currentScreen, setCurrentScreen] =
@@ -76,15 +88,53 @@ export default function App() {
           onSearch={() => setCurrentScreen('search')}
           onFavorites={() => setCurrentScreen('favorites')}
           onCurrency={() => setCurrentScreen('currency')}
+          onProfile={() => setCurrentScreen('profile')}
+          onOrderHistory={() => setCurrentScreen('orderHistory')}
+          onNotifications={() => setCurrentScreen('notifications')}
+          onSettings={() => setCurrentScreen('settings')}
+          onSupport={() => setCurrentScreen('support')}
         />
       )}
 
+      {/* Currency */}
       {currentScreen === 'currency' && (
-        <Currency 
-        onBack={() => setCurrentScreen('home')}
+        <Currency
+          onBack={() => setCurrentScreen('home')}
         />
       )}
 
+      {/* New screens */}
+      {currentScreen === 'profile' && (
+        <Profile
+          onBack={() => setCurrentScreen('home')}
+        />
+      )}
+
+      {currentScreen === 'orderHistory' && (
+        <OrderHistory
+          onBack={() => setCurrentScreen('home')}
+        />
+      )}
+
+      {currentScreen === 'notifications' && (
+        <Notifications
+          onBack={() => setCurrentScreen('home')}
+        />
+      )}
+
+      {currentScreen === 'settings' && (
+        <Settings
+          onBack={() => setCurrentScreen('home')}
+        />
+      )}
+
+      {currentScreen === 'support' && (
+        <Support
+          onBack={() => setCurrentScreen('home')}
+        />
+      )}
+
+      {/* Coffee details */}
       {currentScreen === 'detail' && (
         <DetailItem
           onBack={() => setCurrentScreen('home')}
@@ -106,6 +156,7 @@ export default function App() {
         />
       )}
 
+      {/* Login */}
       {currentScreen === 'login' && (
         <Login
           onLogin={() => setCurrentScreen('home')}
@@ -127,6 +178,7 @@ export default function App() {
         />
       )}
 
+      {/* Search and Favorites */}
       {currentScreen === 'search' && (
         <Search
           onBack={() => setCurrentScreen('home')}
@@ -139,6 +191,7 @@ export default function App() {
         />
       )}
 
+      {/* Delivery process */}
       {currentScreen === 'address' && (
         <Address
           onBack={() => setCurrentScreen('order')}

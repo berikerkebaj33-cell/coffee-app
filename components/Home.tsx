@@ -14,6 +14,11 @@ type HomeProps = {
   onSearch: () => void;
   onFavorites: () => void;
   onCurrency: () => void;
+  onProfile: () => void;
+  onOrderHistory: () => void;
+  onNotifications: () => void;
+  onSettings: () => void;
+  onSupport: () => void;
 };
 
 const categories = ['All', 'Coffee', 'Tea', 'Dessert'];
@@ -32,6 +37,11 @@ export default function Home({
   onSearch,
   onFavorites,
   onCurrency,
+  onProfile,
+  onOrderHistory,
+  onNotifications,
+  onSettings,
+  onSupport,
 }: HomeProps) {
   const [selectedCategory, setSelectedCategory] = useState('All');
 
@@ -40,7 +50,10 @@ export default function Home({
   );
 
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+    <ScrollView
+      style={styles.container}
+      showsVerticalScrollIndicator={false}
+    >
 
       {/* Header */}
       <View style={styles.header}>
@@ -49,7 +62,10 @@ export default function Home({
           <Text style={styles.location}>📍 Almaty, Kazakhstan</Text>
         </View>
 
-        <TouchableOpacity style={styles.profileButton} onPress={onLogin}>
+        <TouchableOpacity
+          style={styles.profileButton}
+          onPress={onProfile}
+        >
           <Text style={styles.profileIcon}>👤</Text>
         </TouchableOpacity>
       </View>
@@ -60,7 +76,7 @@ export default function Home({
         What would you like to drink today?
       </Text>
 
-      {/* Navigation */}
+      {/* First Navigation Row */}
       <View style={styles.navigation}>
         <TouchableOpacity style={styles.navButton} onPress={onSearch}>
           <Text style={styles.navIcon}>🔍</Text>
@@ -78,8 +94,36 @@ export default function Home({
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.navButton} onPress={onLogin}>
-          <Text style={styles.navIcon}>👤</Text>
+          <Text style={styles.navIcon}>🔐</Text>
           <Text style={styles.navText}>Login</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* Second Navigation Row */}
+      <View style={styles.navigationSecond}>
+        <TouchableOpacity style={styles.navButton} onPress={onProfile}>
+          <Text style={styles.navIcon}>👤</Text>
+          <Text style={styles.navText}>Profile</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.navButton} onPress={onOrderHistory}>
+          <Text style={styles.navIcon}>📦</Text>
+          <Text style={styles.navText}>Orders</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.navButton} onPress={onNotifications}>
+          <Text style={styles.navIcon}>🔔</Text>
+          <Text style={styles.navText}>Alerts</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.navButton} onPress={onSettings}>
+          <Text style={styles.navIcon}>⚙️</Text>
+          <Text style={styles.navText}>Settings</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.navButton} onPress={onSupport}>
+          <Text style={styles.navIcon}>💬</Text>
+          <Text style={styles.navText}>Support</Text>
         </TouchableOpacity>
       </View>
 
@@ -223,26 +267,33 @@ const styles = StyleSheet.create({
   navigation: {
     flexDirection: 'row',
     gap: 7,
+    marginBottom: 10,
+  },
+
+  navigationSecond: {
+    flexDirection: 'row',
+    gap: 5,
     marginBottom: 25,
   },
 
   navButton: {
     flex: 1,
     backgroundColor: '#F0E3D5',
-    paddingVertical: 13,
+    paddingVertical: 12,
     borderRadius: 13,
     alignItems: 'center',
+    justifyContent: 'center',
   },
 
   navIcon: {
-    fontSize: 19,
+    fontSize: 18,
     marginBottom: 5,
   },
 
   navText: {
     color: '#593820',
     fontWeight: '600',
-    fontSize: 10,
+    fontSize: 9,
   },
 
   banner: {
